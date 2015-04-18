@@ -30,14 +30,17 @@ func mapify(m map[string]interface{}, c chan map[string]interface{}, tf Tokenize
 
 		tokens := tf(k)
 
-		var z map[string]interface{}
-		var t string
+		var (
+			z map[string]interface{}
+			t string
+		)
 
+		// we are going to use pop to go backwards through the tokens
 		for {
 			// pop
 			t, tokens = tokens[len(tokens)-1], tokens[:len(tokens)-1]
 
-			// are we at the end of the line?
+			// start by appending the actual value.
 			if z == nil {
 				z = map[string]interface{}{
 					t: v,
@@ -49,6 +52,7 @@ func mapify(m map[string]interface{}, c chan map[string]interface{}, tf Tokenize
 				t: z,
 			}
 
+			// all done?
 			if len(tokens) == 0 {
 				c <- z
 				break
