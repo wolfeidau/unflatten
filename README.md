@@ -1,6 +1,6 @@
 # unflatten [![GoDoc](https://img.shields.io/badge/godoc-Reference-brightgreen.svg?style=flat)](http://godoc.org/github.com/wolfeidau/unflatten) [![Build status](https://badge.buildkite.com/151ea999a86e701c902657ecd0b4c584db64211df820a991ef.svg)](https://buildkite.com/mark-at-wolfe-dot-id-dot-au/unflatten)
 
-This library a simple way to "unflatten" a map[string]interface{} where the keys represent some flattened structure. 
+This library will "unflatten" a map[string]interface{} where the keys represent some flattened structure. 
 
 # usage
 
