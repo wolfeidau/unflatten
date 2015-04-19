@@ -1,6 +1,6 @@
 # unflatten [![GoDoc](https://img.shields.io/badge/godoc-Reference-brightgreen.svg?style=flat)](http://godoc.org/github.com/wolfeidau/unflatten) [![Build status](https://badge.buildkite.com/151ea999a86e701c902657ecd0b4c584db64211df820a991ef.svg)](https://buildkite.com/mark-at-wolfe-dot-id-dot-au/unflatten)
 
-This library will "unflatten" a map[string]interface{} where the keys represent some flattened structure. 
+This library can "flatten" and "unflatten" a hierarchy stored in a map[string]interface{}. 
 
 # usage
 
@@ -17,6 +17,10 @@ var m = map[string]interface{}{
 tree := Unflatten(m, func(k string) []string { return strings.Split(k, ".") })
 
 ```
+
+# contributions
+
+Thanks to [Andrew Leap](https://github.com/andyleap) for rewriting this library and reminding me I need to use functions more in golang.
 
 # License
 
