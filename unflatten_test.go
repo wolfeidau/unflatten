@@ -71,7 +71,7 @@ var fromJSON = `{
   "ResponseTime.P95": 0.096207
 }`
 
-var expectedJSON = `{"Connections":{"Accepted":4,"Open":2},"Memory":{"Alloc":682208,"Frees":2567,"Lookups":281,"Mallocs":3326,"Sys":5.441784e+06,"TotalAlloc":1.032488e+06},"Peers":{"IPv6":{"Completed":0,"Current":0,"Joined":0,"Left":0,"Reaped":0,"Seeds":{"Current":0,"Joined":0,"Left":0,"Reaped":0}}},"ResponseTime":{"P50":0.045775,"P90":0.074299,"P95":0.096207}}`
+var expectedJSON = `{"Connections":{"Accepted":4,"Open":2},"Memory":{"Alloc":682208,"Frees":2567,"Lookups":281,"Mallocs":3326,"Sys":5441784,"TotalAlloc":1032488},"Peers":{"IPv6":{"Completed":0,"Current":0,"Joined":0,"Left":0,"Reaped":0,"Seeds":{"Current":0,"Joined":0,"Left":0,"Reaped":0}}},"ResponseTime":{"P50":0.045775,"P90":0.074299,"P95":0.096207}}`
 
 func TestUnflattenConfig(t *testing.T) {
 
