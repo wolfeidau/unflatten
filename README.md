@@ -1,4 +1,4 @@
-# unflatten [![GoDoc](https://img.shields.io/badge/godoc-Reference-brightgreen.svg?style=flat)](http://godoc.org/github.com/wolfeidau/unflatten) [![Go Report Card](https://goreportcard.com/badge/github.com/wolfeidau/unflatten)](https://goreportcard.com/report/github.com/wolfeidau/unflatten)
+# unflatten [![GoDoc](https://img.shields.io/badge/godoc-Reference-brightgreen.svg?style=flat)](http://godoc.org/github.com/wolfeidau/unflatten) [![Go Report Card](https://goreportcard.com/badge/github.com/wolfeidau/unflatten)](https://goreportcard.com/report/github.com/wolfeidau/unflatten) [![Build Status](https://travis-ci.org/wolfeidau/unflatten.svg?branch=master)](https://travis-ci.org/wolfeidau/unflatten)
 
 This library can "flatten" and "unflatten" a hierarchy stored in a map[string]interface{}. 
 
