@@ -1,24 +1,36 @@
-GOPATH := ${PWD}/.gopath
-STAGING_PATH = ${PWD}/.gopath/src/github.com/wolfeidau
-DEPS = $(go list -f '{{range .TestImports}}{{.}} {{end}}' ./...)
+SOURCE_FILES?=$$(go list ./... | grep -v /vendor/)
+TEST_PATTERN?=.
+TEST_OPTIONS?=
 
-all: deps test bench
+GO ?= go
 
-deps:
-	@mkdir -p ${STAGING_PATH}
-	@ln -s ${PWD} ${STAGING_PATH} || true
-	@cd ${STAGING_PATH}/unflatten
-	go get -d -v ./...
+ci: setup lint test
+.PHONY: ci
 
-test: deps
-	@cd ${STAGING_PATH}/unflatten
-	go test -timeout=3s -v ./...
+# Install all the build and lint dependencies
+setup:
+	@$(GO) get -u github.com/golang/dep/cmd/dep
+	@$(GO) get -u github.com/pierrre/gotestcover
+	@$(GO) get -u golang.org/x/tools/cmd/cover
+	@$(GO) get -u honnef.co/go/tools/cmd/megacheck
+	@dep ensure
+.PHONY: setup
 
-bench: deps
-	@cd ${STAGING_PATH}/unflatten
-	go test --bench .
+# Run all the tests
+test:
+	@gotestcover $(TEST_OPTIONS) -covermode=atomic -coverprofile=coverage.txt $(SOURCE_FILES) -run $(TEST_PATTERN) -timeout=2m
+.PHONY: test
 
-clean:
-	rm -rf ${PWD}/.gopath || true
+# Run all the tests and opens the coverage report
+cover: test
+	@$(GO) tool cover -html=coverage.txt
+.PHONY: cover
 
-.PHONY: all deps test bench clean
+# Run all the linters
+lint:
+	@megacheck
+.PHONY: lint
+
+# Run all the tests and code checks
+ci: setup test lint
+.PHONY: ci
