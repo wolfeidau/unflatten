@@ -2,7 +2,6 @@ package unflatten
 
 import (
 	"encoding/json"
-	"strings"
 	"testing"
 )
 
@@ -34,8 +33,8 @@ func TestFlattenConfig(t *testing.T) {
 	config := make(map[string]interface{})
 	json.Unmarshal([]byte(fromJSON), &config)
 
-	tree := Flatten(config, func(ks []string) string { return strings.Join(ks, ".") })
-	payload, _ := json.MarshalIndent(tree,"", "")
+	tree := Flatten(config, JoinWithDot)
+	payload, _ := json.MarshalIndent(tree, "", "")
 	if string(payload) != expectedJSON {
 		t.Errorf("expected %s got %s", expectedJSON, string(payload))
 	}

@@ -1,5 +1,10 @@
 package unflatten
 
+import "strings"
+
+// SplitByDot split the supplied keys by dot or fullstop character
+func SplitByDot(k string) []string { return strings.Split(k, ".") }
+
 // TokenizerFunc This function is used to tokenize the keys in the flattened data structure.
 //
 // The following example uses strings.Split to tokenize based on .

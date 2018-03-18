@@ -101,6 +101,6 @@ func BenchmarkNew(b *testing.B) {
 	json.Unmarshal(buf.Bytes(), &config)
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
-		Unflatten(config, func(k string) []string { return strings.Split(k, ".") })
+		Unflatten(config, SplitByDot)
 	}
 }
