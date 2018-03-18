@@ -1,6 +1,6 @@
 language: go
 go:
-    - 1.10
+    - "1.10"
 
 go_import_path: github.com/wolfeidau/unflatten
 
