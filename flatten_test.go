@@ -3,9 +3,13 @@ package unflatten
 import (
 	"encoding/json"
 	"testing"
+
+	"github.com/stretchr/testify/require"
 )
 
 func TestFlattenConfig(t *testing.T) {
+	assert := require.New(t)
+
 	var expectedJSON = `{
 "Connections.Accepted": 4,
 "Connections.Open": 2,
@@ -31,7 +35,8 @@ func TestFlattenConfig(t *testing.T) {
 	var fromJSON = `{"Connections":{"Accepted":4,"Open":2},"Memory":{"Alloc":682208,"Frees":2567,"Lookups":281,"Mallocs":3326,"Sys":54417,"TotalAlloc":10324},"Peers":{"IPv6":{"Completed":0,"Current":0,"Joined":0,"Left":0,"Reaped":0,"Seeds":{"Current":0,"Joined":0,"Left":0,"Reaped":0}}},"ResponseTime":{"P50":0.045775,"P90":0.074299,"P95":0.096207}}`
 
 	config := make(map[string]interface{})
-	json.Unmarshal([]byte(fromJSON), &config)
+	err := json.Unmarshal([]byte(fromJSON), &config)
+	assert.NoError(err)
 
 	tree := Flatten(config, JoinWithDot)
 	payload, _ := json.MarshalIndent(tree, "", "")

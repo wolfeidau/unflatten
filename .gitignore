@@ -1,1 +1,4 @@
-coverage.txt
+coverage.*
+/bin
+/dist
+/.idea
