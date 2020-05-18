@@ -5,6 +5,8 @@ import (
 	"encoding/json"
 	"strings"
 	"testing"
+
+	"github.com/stretchr/testify/require"
 )
 
 var m = map[string]interface{}{
@@ -74,13 +76,15 @@ var fromJSON = `{
 var expectedJSON = `{"Connections":{"Accepted":4,"Open":2},"Memory":{"Alloc":682208,"Frees":2567,"Lookups":281,"Mallocs":3326,"Sys":5441784,"TotalAlloc":1032488},"Peers":{"IPv6":{"Completed":0,"Current":0,"Joined":0,"Left":0,"Reaped":0,"Seeds":{"Current":0,"Joined":0,"Left":0,"Reaped":0}}},"ResponseTime":{"P50":0.045775,"P90":0.074299,"P95":0.096207}}`
 
 func TestUnflattenConfig(t *testing.T) {
+	assert := require.New(t)
 
 	b := new(bytes.Buffer)
 	config := make(map[string]interface{})
 
 	b.WriteString(fromJSON)
 
-	json.Unmarshal(b.Bytes(), &config)
+	err := json.Unmarshal(b.Bytes(), &config)
+	assert.NoError(err)
 
 	tree := Unflatten(config, func(k string) []string { return strings.Split(k, ".") })
 
@@ -93,12 +97,14 @@ func TestUnflattenConfig(t *testing.T) {
 }
 
 func BenchmarkNew(b *testing.B) {
+	assert := require.New(b)
 	buf := new(bytes.Buffer)
 	config := make(map[string]interface{})
 
 	buf.WriteString(fromJSON)
 
-	json.Unmarshal(buf.Bytes(), &config)
+	err := json.Unmarshal(buf.Bytes(), &config)
+	assert.NoError(err)
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
 		Unflatten(config, SplitByDot)
